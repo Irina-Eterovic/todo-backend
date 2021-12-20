@@ -1,13 +1,11 @@
 package com.assuresoft.todo.controller;
 
 import com.assuresoft.todo.persistence.Task;
-import com.assuresoft.todo.persistence.repository.TaskRepository;
 import com.assuresoft.todo.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,12 +14,32 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
-    @GetMapping("/tasks")
-    public List<Task> allTasks() {
-        return taskService.getAllTasks();
+    @GetMapping("/task/list")
+    public ResponseEntity<List<Task>> allTasks() {
+        return new ResponseEntity<>(taskService.listAllTask(), HttpStatus.OK);
     }
-    @PostMapping("/task")
-    Task newTask(@RequestBody Task newTask) {
+    @PostMapping("/task/create")
+    public Task newTask(@RequestBody Task newTask) {
         return taskService.createTask(newTask);
+    }
+    @GetMapping("/task/{taskId}")
+    public Task getTask(@PathVariable("taskId") Long taskId) {
+        return taskService.findTaskById(taskId);
+    }
+    @DeleteMapping("/task/{taskId}")
+     public void deleteTask(@PathVariable("taskId") Long taskId) {
+        taskService.deleteTask(taskId);
+    }
+    @PatchMapping("task/{taskId}/complete")
+    public Task updateTask(@PathVariable("taskId") Long taskId,  @RequestBody Task completedTask){
+        return taskService.updateComplete(taskId, completedTask);
+    }
+   @PatchMapping("task/{taskId}/title")
+    public Task updateTitle(@PathVariable("taskId") Long taskId,  @RequestBody Task completedTask){
+        return taskService.updateTitle(taskId, completedTask);
+    }
+    @PatchMapping("task/{taskId}/")
+    public Task updateTaske(@PathVariable("taskId") Long taskId,  @RequestBody Task completedTask){
+        return taskService.updateTask(taskId, completedTask);
     }
 }
