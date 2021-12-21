@@ -1,5 +1,11 @@
 package com.assuresoft.todo.service;
 
+import com.assuresoft.todo.controller.api.request.TaskCreateRequest;
+import com.assuresoft.todo.controller.api.request.TaskUpdateRequest;
+import com.assuresoft.todo.controller.api.response.TaskCreateResponse;
+import com.assuresoft.todo.controller.api.response.TaskGetListResponse;
+import com.assuresoft.todo.controller.api.response.TaskGetResponse;
+import com.assuresoft.todo.controller.api.response.TaskUpdateResponse;
 import com.assuresoft.todo.persistence.Task;
 import com.assuresoft.todo.persistence.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,28 +17,37 @@ import java.util.List;
 public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
-    public  List<Task> listAllTask(){
-        return taskRepository.findAll();
+    public TaskGetListResponse listAllTask(){
+        List<Task> taskList= taskRepository.findAll();
+        return new TaskGetListResponse(taskList);
     }
-    public  Task createTask(Task task){
-        return taskRepository.save(task);
+    public TaskCreateResponse createTask(TaskCreateRequest taskRequest){
+        Task task = new Task();
+        task.setCompleted(taskRequest.getCompleted());
+        task.setTitle(taskRequest.getTitle());
+        task.setDueDate(taskRequest.getDueDate());
+        task.setCreatedDate(taskRequest.getCreatedDate());
+        task = taskRepository.save(task);
+        return new TaskCreateResponse(taskRequest.getTitle(),task.getTaskId());
     }
 
-    public Task findTaskById(Long taskId) {
-        return taskRepository.getById(taskId);
+    public TaskGetResponse findTaskById(Long taskId) {
+        Task task = taskRepository.getById(taskId);
+        return new TaskGetResponse(task.getTaskId(),task.getTitle(),task.getDueDate(),task.getCreatedDate(),task.getCompleted());
     }
 
     public void deleteTask(Long taskId) {
          taskRepository.deleteById(taskId);
     }
 
-    public Task updateComplete(Long taskId, Task completedTask) {
+    public TaskUpdateResponse updateComplete(Long taskId, TaskUpdateRequest completedTask) {
         Task updatedTask = taskRepository.getById(taskId);
         updatedTask.setCompleted(completedTask.getCompleted());
-        return taskRepository.save(updatedTask);
+        taskRepository.save(updatedTask);
+        return new TaskUpdateResponse(taskId,completedTask.getCompleted());
     }
 
-    public Task updateTitle(Long taskId, Task completedTask) {
+    public Task updateTitle(Long taskId, TaskUpdateRequest completedTask) {
         Task updatedTask = taskRepository.getById(taskId);
         updatedTask.setTitle(completedTask.getTitle());
         return taskRepository.save(updatedTask);

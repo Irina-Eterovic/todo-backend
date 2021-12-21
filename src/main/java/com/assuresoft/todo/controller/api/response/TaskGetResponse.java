@@ -1,21 +1,29 @@
-package com.assuresoft.todo.persistence;
+package com.assuresoft.todo.controller.api.response;
 
-import javax.persistence.*;
 import java.time.OffsetDateTime;
 
-@Entity
-public class Task {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "task_id", nullable = false)
+public class TaskGetResponse {
     private Long taskId;
     private String title;
-    @Column(nullable = false, name = "due_date")
     private OffsetDateTime dueDate;
-    @Column(nullable = false, name = "created_date")
     private OffsetDateTime createdDate;
-    @Column(nullable = false)
     private Boolean completed;
+
+    public TaskGetResponse(Long taskId, String title, OffsetDateTime dueDate, OffsetDateTime createdDate, Boolean completed) {
+        this.taskId = taskId;
+        this.title = title;
+        this.dueDate = dueDate;
+        this.createdDate = createdDate;
+        this.completed = completed;
+    }
+
+    public Long getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(Long taskId) {
+        this.taskId = taskId;
+    }
 
     public String getTitle() {
         return title;
@@ -48,15 +56,4 @@ public class Task {
     public void setCompleted(Boolean completed) {
         this.completed = completed;
     }
-
-
-
-    public Long getTaskId() {
-        return taskId;
-    }
-
-    public void setTaskId(Long taskId) {
-        this.taskId = taskId;
-    }
-
 }
