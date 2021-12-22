@@ -9,6 +9,8 @@ import com.assuresoft.todo.controller.api.response.TaskUpdateResponse;
 import com.assuresoft.todo.persistence.Task;
 import com.assuresoft.todo.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,8 +31,9 @@ public class TaskController {
         return taskService.findTaskById(taskId);
     }
     @DeleteMapping("/task/{taskId}")
-     public void deleteTask(@PathVariable("taskId") Long taskId) {
+     public ResponseEntity<Long> deleteTask(@PathVariable("taskId") Long taskId) {
         taskService.deleteTask(taskId);
+        return  new ResponseEntity<>(taskId, HttpStatus.OK);
     }
     @PatchMapping("task/{taskId}/complete")
     public TaskUpdateResponse updateTaskComplete(@PathVariable("taskId") Long taskId, @RequestBody TaskUpdateRequest completedTask){
