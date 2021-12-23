@@ -4,18 +4,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+
 
 @Configuration
-public class CorsConfiguration implements WebMvcConfigurer {
+public class CorsConfiguration extends WebMvcConfigurationSupport {
     @Override
     public void addCorsMappings( CorsRegistry registry ){
-        registry.addMapping( "/**" )
-                .allowedOrigins( "*" )
-                .allowedMethods( HttpMethod.GET.name(), HttpMethod.POST.name(), HttpMethod.PUT.name(),
-                        HttpMethod.DELETE.name(), HttpMethod.OPTIONS.name(), HttpMethod.PATCH.name() )
-                .allowCredentials( false )
+        registry.addMapping("/**")
+                .allowedMethods("GET", "POST", "PUT", "DELETE","PATCH")
+                .allowedOrigins("*")
                 .allowedHeaders("*")
-                .maxAge( 3600 );
+                .allowCredentials(false);
     }
 }
