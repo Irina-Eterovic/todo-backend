@@ -20,7 +20,7 @@ public class TaskController {
 
     @GetMapping("/task/list")
     public TaskGetListResponse allTasks() {
-       return taskService.listAllTask();
+        return taskService.listAllTask();
     }
     @PostMapping("/task/create")
     public TaskCreateResponse newTask(@RequestBody TaskCreateRequest newTask) {
