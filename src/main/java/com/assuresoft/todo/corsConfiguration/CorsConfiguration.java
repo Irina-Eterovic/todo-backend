@@ -1,10 +1,12 @@
 package com.assuresoft.todo.corsConfiguration;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+@Configuration
 public class CorsConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings( CorsRegistry registry ){
@@ -12,8 +14,8 @@ public class CorsConfiguration implements WebMvcConfigurer {
                 .allowedOrigins( "*" )
                 .allowedMethods( HttpMethod.GET.name(), HttpMethod.POST.name(), HttpMethod.PUT.name(),
                         HttpMethod.DELETE.name(), HttpMethod.OPTIONS.name(), HttpMethod.PATCH.name() )
-                .allowCredentials( true ).exposedHeaders( HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS )
-                .allowedHeaders( HttpHeaders.CONTENT_TYPE, HttpHeaders.ACCEPT, HttpHeaders.AUTHORIZATION)
+                .allowCredentials( false )
+                .allowedHeaders("*")
                 .maxAge( 3600 );
     }
 }
