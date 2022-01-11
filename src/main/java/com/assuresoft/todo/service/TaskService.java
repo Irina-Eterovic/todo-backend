@@ -21,6 +21,7 @@ public class TaskService {
         List<Task> taskList= taskRepository.findAll();
         return new TaskGetListResponse(taskList);
     }
+
     public TaskCreateResponse createTask(TaskCreateRequest taskRequest){
         Task task = new Task();
         task.setCompleted(taskRequest.getCompleted());

@@ -18,4 +18,7 @@ public class TaskCreateRequest {
         this.createdDate = created_date;
         this.completed = completed;
     }
+
+    public TaskCreateRequest() {
+    }
 }
