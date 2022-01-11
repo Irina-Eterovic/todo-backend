@@ -1,8 +1,16 @@
 package com.assuresoft.todo.persistence;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.OffsetDateTime;
-
+@Getter
+@Setter
+@RequiredArgsConstructor
+@Data
 @Entity
 public class Task {
     @Id
@@ -16,47 +24,4 @@ public class Task {
     private OffsetDateTime createdDate;
     @Column(nullable = false)
     private Boolean completed;
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public OffsetDateTime getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(OffsetDateTime dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    public OffsetDateTime getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(OffsetDateTime createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Boolean getCompleted() {
-        return completed;
-    }
-
-    public void setCompleted(Boolean completed) {
-        this.completed = completed;
-    }
-
-
-
-    public Long getTaskId() {
-        return taskId;
-    }
-
-    public void setTaskId(Long taskId) {
-        this.taskId = taskId;
-    }
-
 }
