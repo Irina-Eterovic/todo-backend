@@ -10,7 +10,6 @@ import java.time.OffsetDateTime;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Data
 @Entity
 public class Task {
     @Id

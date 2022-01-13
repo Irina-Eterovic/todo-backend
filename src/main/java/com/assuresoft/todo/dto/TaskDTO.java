@@ -1,14 +1,18 @@
-package com.assuresoft.todo.controller.api.response;
-
-import java.time.OffsetDateTime;
+package com.assuresoft.todo.dto;
 
 import lombok.*;
 
-public class TaskGetResponse {
+import java.time.OffsetDateTime;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Data
+public class TaskDTO {
     private Long taskId;
     private String title;
     private OffsetDateTime dueDate;
     private OffsetDateTime createdDate;
     private Boolean completed;
-
 }
